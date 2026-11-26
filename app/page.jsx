@@ -60,7 +60,7 @@ export default async function Home() {
       </section>
 
       {/* Diensten */}
-      <section id="diensten" style={{ padding: '112px 0 96px' }}>
+      <section id="diensten" className="sectie">
         <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
           <div className="kop-rij">
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>

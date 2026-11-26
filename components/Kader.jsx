@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { getInstellingen, telLink } from '@/lib/data';
+import Menu from './Menu';
 
 function Logo({ src, wit }) {
-  if (src) return <img src={src} alt="N. Kuiper B.V. Installatietechniek" className={wit ? 'logo-wit' : ''} style={{ height: 54, width: 'auto' }} />;
+  if (src) return <img src={src} alt="N. Kuiper B.V. Installatietechniek" className={wit ? 'logo-wit' : ''} style={{ height: 'clamp(40px, 6vw, 54px)', width: 'auto' }} />;
   return (
     <div className="logo-tekst" style={wit ? { color: '#fff' } : undefined}>
       N. Kuiper B.V.<span style={wit ? { color: '#CFCAC5' } : undefined}>Installatietechniek</span>
@@ -20,8 +21,8 @@ export default async function Kader({ children }) {
     <>
       <div className="topbalk">
         <div className="wrap">
-          <div>Storing aan uw cv-ketel of warmtepomp? Bel direct <a href={tel} style={{ fontWeight: 600, textDecoration: 'underline' }}>{i.telefoon}</a></div>
-          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+          <div><span className="alleen-groot">Storing aan uw cv-ketel of warmtepomp? </span><span className="alleen-klein">Storing? </span>Bel direct <a href={tel} style={{ fontWeight: 600, textDecoration: 'underline' }}>{i.telefoon}</a></div>
+          <div className="alleen-groot" style={{ gap: 24, flexWrap: 'wrap' }}>
             <a href={`mailto:${i.email}`}>{i.email}</a>
             <a href={i.klantenportaal}>Klantenportaal →</a>
           </div>
@@ -31,16 +32,8 @@ export default async function Kader({ children }) {
       <header className="header">
         <div className="wrap">
           <Link href="/" aria-label="Naar de homepage"><Logo src={i.logo} /></Link>
-          <nav className="nav" aria-label="Hoofdmenu">
-            <Link href="/#diensten">Diensten</Link>
-            <Link href="/#duurzaam">Duurzaam</Link>
-            <Link href="/diensten/service-onderhoud">Service &amp; onderhoud</Link>
-            <Link href="/over-ons">Over ons</Link>
-            <Link href="/actueel">Actueel</Link>
-            <Link href="/werken-bij">Werken bij</Link>
-            <Link href="/contact">Contact</Link>
-          </nav>
-          <Link href="/contact#offerte" className="btn" style={{ fontSize: 15, padding: '13px 22px' }}>Offerte aanvragen</Link>
+          <Menu telefoon={i.telefoon} telHref={tel} />
+          <Link href="/contact#offerte" className="btn header-cta" style={{ fontSize: 15, padding: '13px 22px' }}>Offerte aanvragen</Link>
         </div>
       </header>
 
