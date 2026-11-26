@@ -1,4 +1,5 @@
 import './globals.css';
+import AuthLink from '@/components/AuthLink';
 
 export const metadata = {
   title: {
@@ -16,7 +17,10 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
       </head>
-      <body>{children}</body>
+      <body>
+        <AuthLink />
+        {children}
+      </body>
     </html>
   );
 }

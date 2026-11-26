@@ -1,5 +1,5 @@
 'use client';
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { inloggen, wachtwoordVergeten } from './actions';
 
@@ -7,6 +7,11 @@ export default function Inloggen() {
   const [vergeten, setVergeten] = useState(false);
   const [staat, actie, bezig] = useActionState(inloggen, null);
   const [staatV, actieV, bezigV] = useActionState(wachtwoordVergeten, null);
+  const [linkFout, setLinkFout] = useState('');
+  useEffect(() => {
+    const f = new URLSearchParams(window.location.search).get('fout');
+    if (f) { setLinkFout(f + ' Vraag via "Wachtwoord vergeten?" een nieuwe link aan.'); setVergeten(true); }
+  }, []);
 
   return (
     <main style={{ minHeight: '100vh', background: 'var(--lichtgrijs)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, position: 'relative' }}>
@@ -16,6 +21,7 @@ export default function Inloggen() {
           <div className="lbl">Beheer</div>
           <h1 style={{ fontSize: 28, fontWeight: 800, marginTop: 8 }}>N. Kuiper website</h1>
         </div>
+        {linkFout && <div className="melding fout" role="alert">{linkFout}</div>}
         {!vergeten ? (
           <form action={actie} className="form">
             <div className="veld"><label htmlFor="email">E-mailadres</label><input id="email" name="email" type="email" required autoComplete="username" /></div>
