@@ -18,23 +18,22 @@ export default async function Home() {
 
   return (
     <Kader>
-      {/* Hero */}
-      <section className="hero">
-        <div className="wrap split" style={{ gap: 48 }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-            <div className="lbl">{i.hero_label}</div>
-            <h1>{i.hero_titel}</h1>
-            {i.hero_tekst && <p>{i.hero_tekst}</p>}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
-              <Link href="/contact#offerte" className="btn">Offerte aanvragen</Link>
-              <a href={tel} className="btn-rand">Bel {i.telefoon}</a>
-            </div>
-          </div>
-          <div className="hero-foto">
-            <Foto src={i.hero_foto} alt="Monteur van N. Kuiper aan het werk" hoogte={460} label="Foto volgt" />
-            {i.sinds_jaar && (
-              <div className="sinds"><b>Sinds {i.sinds_jaar}</b><span>familiebedrijf in de Achterhoek</span></div>
-            )}
+      {/* Groot openingsbeeld: filmpje, anders foto */}
+      <section className="beeld">
+        {i.hero_foto && <img src={i.hero_foto} alt="Het team van N. Kuiper" className="beeld-media" />}
+        {i.hero_video && (
+          <video className="beeld-media" src={i.hero_video} poster={i.hero_foto || undefined} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+        )}
+        <div className="beeld-scrim" />
+        {!i.hero_video && !i.hero_foto && <span className="beeld-leeg">Hier komt het openingsfilmpje of de teamfoto (te uploaden via het beheer)</span>}
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
+          <div className="lbl">{i.hero_label}</div>
+          <h1>{i.hero_titel}</h1>
+          {i.hero_tekst && <p>{i.hero_tekst}</p>}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
+            <Link href="/contact#offerte" className="btn">Offerte aanvragen</Link>
+            <a href={tel} className="btn-rand">Bel {i.telefoon}</a>
+            {i.sinds_jaar && <span style={{ marginLeft: 8, fontSize: 15, color: '#CFCAC5' }}>Familiebedrijf sinds {i.sinds_jaar}</span>}
           </div>
         </div>
       </section>
@@ -78,6 +77,27 @@ export default async function Home() {
                 <span className="card-tekst">{d.korte_tekst}</span>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Ons team */}
+      <section id="team" style={{ paddingBottom: 96 }}>
+        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+          <div className="team-foto">
+            {i.team_foto
+              ? <img src={i.team_foto} alt="Het team van N. Kuiper" />
+              : <div className="ph" style={{ height: '100%', borderRadius: 0 }}>Hier komt de grote teamfoto (te uploaden via het beheer)</div>}
+          </div>
+          <div className="kop-rij" style={{ alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <div className="streep" />
+              <h2 className="h2">{i.team_titel || 'Ons team'}</h2>
+            </div>
+            <div style={{ maxWidth: 560, display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {i.team_tekst && <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65, color: 'var(--tekst2)' }}>{i.team_tekst}</p>}
+              <Link href="/over-ons" style={{ fontWeight: 600 }}>Meer over ons →</Link>
+            </div>
           </div>
         </div>
       </section>

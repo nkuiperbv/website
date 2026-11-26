@@ -2,7 +2,7 @@ import FotoVeld from './FotoVeld';
 
 export function Veld({ veld, waarde }) {
   const id = `v-${veld.naam}`;
-  if (veld.type === 'foto') return <FotoVeld naam={veld.naam} label={veld.label} waarde={waarde} uitleg={veld.uitleg} />;
+  if (veld.type === 'foto' || veld.type === 'video') return <FotoVeld naam={veld.naam} label={veld.label} waarde={waarde} uitleg={veld.uitleg} soort={veld.type} />;
   if (veld.type === 'vinkje') {
     return (
       <label style={{ display: 'flex', gap: 10, alignItems: 'center', fontWeight: 600, fontSize: 14 }}>
