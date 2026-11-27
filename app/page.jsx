@@ -19,21 +19,31 @@ export default async function Home() {
   return (
     <Kader>
       {/* Groot openingsbeeld: filmpje, anders foto */}
-      <section className="beeld">
+      <section className="beeld" aria-label="Openingsbeeld">
         {i.hero_foto && <img src={i.hero_foto} alt="Het team van N. Kuiper" className="beeld-media" />}
         {i.hero_video && (
           <video className="beeld-media" src={i.hero_video} poster={i.hero_foto || undefined} autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
         )}
-        <div className="beeld-scrim" />
         {!i.hero_video && !i.hero_foto && <span className="beeld-leeg">Hier komt het openingsfilmpje of de teamfoto (te uploaden via het beheer)</span>}
-        <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
-          <div className="lbl">{i.hero_label}</div>
-          <h1>{i.hero_titel}</h1>
-          {i.hero_tekst && <p>{i.hero_tekst}</p>}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
-            <Link href="/contact#offerte" className="btn">Offerte aanvragen</Link>
-            <a href={tel} className="btn-rand">Bel {i.telefoon}</a>
-            {i.sinds_jaar && <span style={{ marginLeft: 8, fontSize: 15, color: '#CFCAC5' }}>Familiebedrijf sinds {i.sinds_jaar}</span>}
+        <a href="#intro" className="beeld-pijl" aria-label="Naar beneden">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+        </a>
+      </section>
+
+      {/* Kop en introductie, onder het beeld */}
+      <section id="intro" className="intro">
+        <div className="wrap intro-grid">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+            <div className="lbl">{i.hero_label}</div>
+            <h1>{i.hero_titel}</h1>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {i.hero_tekst && <p>{i.hero_tekst}</p>}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
+              <Link href="/contact#offerte" className="btn">Offerte aanvragen</Link>
+              <a href={tel} className="btn-rand">Bel {i.telefoon}</a>
+            </div>
+            {i.sinds_jaar && <span style={{ fontSize: 15, color: 'var(--grijs-tekst)' }}>Familiebedrijf sinds {i.sinds_jaar}</span>}
           </div>
         </div>
       </section>
