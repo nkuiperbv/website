@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Kader from '@/components/Kader';
 import Icoon from '@/components/Icoon';
-import { getInstellingen, getDiensten, getNieuws, telLink } from '@/lib/data';
+import { getInstellingen, getDiensten, getNieuws, getKeurmerken, telLink } from '@/lib/data';
 
 export const revalidate = 60;
 
@@ -11,7 +11,7 @@ function Foto({ src, alt, hoogte, label, donker }) {
 }
 
 export default async function Home() {
-  const [i, alle, nieuws] = await Promise.all([getInstellingen(), getDiensten(), getNieuws(3)]);
+  const [i, alle, nieuws, keurmerken] = await Promise.all([getInstellingen(), getDiensten(), getNieuws(3), getKeurmerken()]);
   const diensten = alle.filter((d) => d.categorie === 'dienst');
   const duurzaam = alle.filter((d) => d.categorie === 'duurzaam');
   const tel = telLink(i.telefoon);
@@ -144,12 +144,17 @@ export default async function Home() {
             <div><Link href="/contact?onderwerp=Onderhoud#offerte" className="btn">Onderhoud aanvragen</Link></div>
           </div>
           <div className="keurmerken">
-            <div><b>DEKRA</b><span>Gecertificeerd · BRL 6000-25</span></div>
-            <div><b>BRL 100</b><span>Gecertificeerd voor F-gassen (airco en warmtepompen)</span></div>
-            <div><b>CO-vrij</b><span>Keurmerk</span></div>
-            <div><b>NVKL</b><span>Lid, koude- en klimaattechniek</span></div>
-            <div><b>Techniek Nederland</b><span>Lid</span></div>
-            <div><b>SBB</b><span>Erkend leerbedrijf</span></div>
+            {keurmerken.map((k) => {
+              const inhoud = (
+                <>
+                  {k.foto_url ? <img src={k.foto_url} alt={k.titel} className="keurmerk-logo" /> : <b>{k.titel}</b>}
+                  {k.omschrijving && <span>{k.omschrijving}</span>}
+                </>
+              );
+              return k.link
+                ? <a key={k.id} href={k.link} target="_blank" rel="noopener noreferrer" className="keurmerk">{inhoud}</a>
+                : <div key={k.id} className="keurmerk">{inhoud}</div>;
+            })}
           </div>
         </div>
       </section>

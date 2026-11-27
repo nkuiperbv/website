@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getBeheerder } from '@/lib/supabase/server';
 import { COLLECTIES } from '@/lib/collecties';
 
-const KOP = { titel: 'Titel', categorie: 'Plek', zichtbaar: 'Zichtbaar', gepubliceerd_op: 'Datum', uren: 'Uren' };
+const KOP = { titel: 'Titel', categorie: 'Plek', zichtbaar: 'Zichtbaar', gepubliceerd_op: 'Datum', uren: 'Uren', omschrijving: 'Omschrijving' };
 
 export default async function Lijst({ params }) {
   const { collectie } = await params;

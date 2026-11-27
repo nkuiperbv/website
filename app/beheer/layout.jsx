@@ -25,6 +25,7 @@ export default async function BeheerLayout({ children }) {
           <Link href="/beheer/diensten">Diensten</Link>
           <Link href="/beheer/nieuws">Nieuws</Link>
           <Link href="/beheer/vacatures">Vacatures</Link>
+          <Link href="/beheer/keurmerken">Keurmerken</Link>
           <Link href="/beheer/wachtwoord">Wachtwoord wijzigen</Link>
         </nav>
         <div style={{ padding: 20, marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: 'var(--grijs-tekst)' }}>

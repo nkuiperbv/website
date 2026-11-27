@@ -123,7 +123,7 @@ span.alleen-groot { display: inline; }
   .intro p { font-size: 17px; }
   .paginakop { padding: 44px 0; }
   .card { padding: 22px; }
-  .keurmerken div { padding: 20px; }
+  .keurmerk { padding: 18px; }
   .header::before { height: 72px; }
   .header .wrap { min-height: 72px; }
   .footer .kolommen { padding-top: 56px; gap: 28px; }
@@ -154,9 +154,11 @@ span.alleen-groot { display: inline; }
 .vinkjes li { display: flex; gap: 12px; }
 .vinkjes li::before { content: '✓'; color: var(--rood); font-weight: 700; }
 .keurmerken { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.keurmerken div { background: var(--lichtgrijs); border-radius: 8px; padding: 28px; display: flex; flex-direction: column; gap: 6px; }
-.keurmerken b { font-family: var(--kop); font-size: 18px; }
-.keurmerken span { font-size: 14px; color: var(--grijs-tekst); }
+.keurmerk { background: var(--lichtgrijs); border-radius: 8px; padding: 24px; display: flex; flex-direction: column; justify-content: center; gap: 10px; min-height: 120px; }
+a.keurmerk:hover { outline: 1px solid var(--antraciet); color: inherit; }
+.keurmerk b { font-family: var(--kop); font-size: 18px; }
+.keurmerk span { font-size: 14px; color: var(--grijs-tekst); line-height: 1.45; }
+.keurmerk-logo { height: 52px; width: auto; max-width: 100%; object-fit: contain; object-position: left center; mix-blend-mode: multiply; }
 .bericht { display: flex; flex-direction: column; gap: 16px; }
 .bericht-titel { font-family: var(--kop); font-size: 20px; font-weight: 700; line-height: 1.3; }
 .werken-blok { background: var(--rood); color: #fff; border-radius: 10px; padding: 56px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; justify-content: space-between; }
