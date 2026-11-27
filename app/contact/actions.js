@@ -1,5 +1,8 @@
 'use server';
+import { headers } from 'next/headers';
 import { publicClient } from '@/lib/supabase/public';
+import { getInstellingen } from '@/lib/data';
+import { meldNieuwBericht } from '@/lib/mail';
 
 const max = (v, n) => String(v || '').trim().slice(0, n);
 
@@ -26,6 +29,15 @@ export async function verstuurAanvraag(_vorige, formData) {
   if (error) {
     console.error('aanvraag', error);
     return terug('Versturen is niet gelukt. Probeer het later opnieuw of bel ons.');
+  }
+
+  // Melding per mail naar kantoor. Mislukt dit, dan staat het bericht nog steeds in het beheer.
+  try {
+    const [i, h] = await Promise.all([getInstellingen(), headers()]);
+    const host = h.get('x-forwarded-host') || h.get('host');
+    await meldNieuwBericht(aanvraag, { naar: i.email, siteUrl: host ? `https://${host}` : '' });
+  } catch (e) {
+    console.error('melding', e);
   }
   return { ok: true };
 }
