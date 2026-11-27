@@ -172,7 +172,7 @@ span.alleen-groot { display: inline; }
 .footer .onder { border-top: 1px solid #3A3634; }
 .footer .onder .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 20px; padding-bottom: 20px; font-size: 13px; color: #A39E99; }
 .footer .onder a { color: #A39E99; }
-.logo-wit { filter: brightness(0) invert(1); }
+.logo-plaat { display: inline-flex; align-self: flex-start; background: #fff; border-radius: 8px; padding: 10px 14px; }
 
 /* Paginakop subpagina's */
 .paginakop { background: var(--lichtgrijs); padding: 64px 0; }

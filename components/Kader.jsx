@@ -14,7 +14,11 @@ function waNummer(n) {
 }
 
 function Logo({ src, wit }) {
-  if (src) return <img src={src} alt="N. Kuiper B.V. Installatietechniek" className={wit ? 'logo-wit' : ''} style={{ height: 'clamp(40px, 6vw, 54px)', width: 'auto' }} />;
+  if (src) {
+    const img = <img src={src} alt="N. Kuiper B.V. Installatietechniek" style={{ height: 'clamp(40px, 6vw, 54px)', width: 'auto' }} />;
+    // Onderaan op een wit vlak, zodat ook een logo met witte achtergrond (JPG) netjes staat.
+    return wit ? <span className="logo-plaat">{img}</span> : img;
+  }
   return (
     <div className="logo-tekst" style={wit ? { color: '#fff' } : undefined}>
       N. Kuiper B.V.<span style={wit ? { color: '#CFCAC5' } : undefined}>Installatietechniek</span>
