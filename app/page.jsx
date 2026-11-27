@@ -14,6 +14,7 @@ export default async function Home() {
   const [i, alle, nieuws, keurmerken] = await Promise.all([getInstellingen(), getDiensten(), getNieuws(3), getKeurmerken()]);
   const diensten = alle.filter((d) => d.categorie === 'dienst');
   const duurzaam = alle.filter((d) => d.categorie === 'duurzaam');
+  const zakelijk = alle.filter((d) => d.categorie === 'zakelijk');
   const tel = telLink(i.telefoon);
 
   return (
@@ -69,6 +70,32 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Duurzaam */}
+      <section id="duurzaam" className="donker">
+        <div className="wrap" style={{ paddingTop: 96, paddingBottom: 96, display: 'flex', flexDirection: 'column', gap: 48 }}>
+          <div className="split">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              <div className="lbl">Duurzaam</div>
+              <h2 className="h2" style={{ color: '#fff' }}>{i.duurzaam_titel || 'Stap voor stap van het gas af'}</h2>
+              {i.duurzaam_tekst && <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65 }}>{i.duurzaam_tekst}</p>}
+              <div><Link href="/contact?onderwerp=Warmtepomp#formulier" className="btn">Advies aanvragen</Link></div>
+            </div>
+            <Foto src={i.duurzaam_foto} alt="Duurzame installatie" hoogte={380} label="Foto volgt" donker />
+          </div>
+          {duurzaam.length > 0 && (
+            <div className="grid-auto" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
+              {duurzaam.map((d) => (
+                <Link key={d.id} href={`/diensten/${d.slug}`} className="card card-donker">
+                  <Icoon naam={d.icoon} />
+                  <span className="card-titel">{d.titel}</span>
+                  <span className="card-tekst">{d.korte_tekst}</span>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Diensten */}
       <section id="diensten" className="sectie">
         <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
@@ -77,7 +104,7 @@ export default async function Home() {
               <div className="streep" />
               <h2 className="h2">Alles onder één dak</h2>
             </div>
-            <p style={{ margin: 0, maxWidth: 440, fontSize: 17, lineHeight: 1.6, color: 'var(--grijs-tekst)' }}>Van een lekkende kraan tot een complete installatie voor uw bedrijfspand.</p>
+            <p style={{ margin: 0, maxWidth: 440, fontSize: 17, lineHeight: 1.6, color: 'var(--grijs-tekst)' }}>Verwarming, elektra, sanitair en meer. Van een lekkende kraan tot een complete nieuwe installatie.</p>
           </div>
           <div className="grid-auto">
             {diensten.map((d) => (
@@ -91,8 +118,37 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Voor bedrijven en industrie */}
+      {zakelijk.length > 0 && (
+        <section id="zakelijk" className="sectie" style={{ background: 'var(--lichtgrijs)' }}>
+          <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 48 }}>
+            <div className="split">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                <div className="lbl">Zakelijk</div>
+                <h2 className="h2">{i.zakelijk_titel || 'Voor bedrijven en industrie'}</h2>
+                {i.zakelijk_tekst && <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65, color: 'var(--tekst2)' }}>{i.zakelijk_tekst}</p>}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                  <Link href="/contact?onderwerp=Zakelijk%20project#formulier" className="btn">Project bespreken</Link>
+                  <a href={tel} className="btn-rand">Bel {i.telefoon}</a>
+                </div>
+              </div>
+              <Foto src={i.zakelijk_foto} alt="Installatie in een fabriek" hoogte={380} label="Foto volgt: installatie bij een bedrijf" />
+            </div>
+            <div className="grid-auto">
+              {zakelijk.map((d) => (
+                <Link key={d.id} href={`/diensten/${d.slug}`} className="card">
+                  <Icoon naam={d.icoon} />
+                  <span className="card-titel">{d.titel}</span>
+                  <span className="card-tekst">{d.korte_tekst}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Ons team */}
-      <section id="team" style={{ paddingBottom: 96 }}>
+      <section id="team" className="sectie">
         <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
           <div className="team-foto">
             {i.team_foto
@@ -108,23 +164,6 @@ export default async function Home() {
               {i.team_tekst && <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65, color: 'var(--tekst2)' }}>{i.team_tekst}</p>}
               <Link href="/over-ons" style={{ fontWeight: 600 }}>Meer over ons →</Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Duurzaam */}
-      <section id="duurzaam" className="donker">
-        <div className="wrap split" style={{ paddingTop: 96, paddingBottom: 96 }}>
-          <Foto src={i.duurzaam_foto} alt="Duurzame installatie" hoogte={420} label="Foto volgt" donker />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-            <div className="lbl">Duurzaam</div>
-            <h2 className="h2" style={{ color: '#fff' }}>{i.duurzaam_titel || 'Stap voor stap van het gas af'}</h2>
-            {i.duurzaam_tekst && <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65 }}>{i.duurzaam_tekst}</p>}
-            {duurzaam.length > 0 && (
-              <div className="duurzaam-links">
-                {duurzaam.map((d) => <Link key={d.id} href={`/diensten/${d.slug}`}>{d.titel} →</Link>)}
-              </div>
-            )}
           </div>
         </div>
       </section>

@@ -2,13 +2,14 @@
 import { useActionState, useState } from 'react';
 import { verstuurAanvraag } from '@/app/contact/actions';
 
-const ONDERWERPEN = ['Algemene vraag', 'Offerte', 'Onderhoud', 'Storing (geen spoed)', 'Verwarming', 'Warmtepomp', 'Zonnepanelen', 'Elektra', 'Sanitair', 'Airco', 'Laadpaal', 'Sollicitatie', 'Iets anders'];
+const ONDERWERPEN = ['Algemene vraag', 'Offerte', 'Onderhoud', 'Storing (geen spoed)', 'Verwarming', 'Warmtepomp', 'Zonnepanelen', 'Elektra', 'Sanitair', 'Airco', 'Laadpaal', 'Zakelijk project', 'Sollicitatie', 'Iets anders'];
 
 // Kop, knop en hulptekst per soort bericht
 function soort(onderwerp) {
   const o = String(onderwerp || '').toLowerCase();
   if (o.startsWith('onderhoud') || o.startsWith('service')) return { kop: 'Onderhoud aanvragen', knop: 'Onderhoudsaanvraag versturen', vraag: 'Welk toestel of welke installatie? Merk en type, als u dat weet', placeholder: 'Bijvoorbeeld: jaarlijks onderhoud aan onze cv-ketel (Remeha Tzerra). Voorkeur voor een ochtend.' };
   if (o.startsWith('storing')) return { kop: 'Storing doorgeven', knop: 'Storing doorgeven', vraag: 'Wat is er aan de hand?', placeholder: 'Omschrijf de storing. Heeft u spoed, bel dan direct.' };
+  if (o.startsWith('zakelijk')) return { kop: 'Zakelijk project bespreken', knop: 'Bericht versturen', vraag: 'Waar gaat het project over?', placeholder: 'Bijvoorbeeld: nieuwe persluchtvoorziening en hoofdverdeler voor onze productiehal. Vermeld ook uw bedrijfsnaam.' };
   if (o.startsWith('sollicitatie')) return { kop: 'Solliciteren', knop: 'Sollicitatie versturen', vraag: 'Vertel iets over uzelf', placeholder: 'Voor welke functie, uw ervaring en wanneer we u kunnen bellen.' };
   if (o.startsWith('algemene') || o.startsWith('iets anders')) return { kop: 'Contactformulier', knop: 'Bericht versturen', vraag: 'Uw vraag of bericht', placeholder: '' };
   return { kop: 'Offerte aanvragen', knop: 'Offerteaanvraag versturen', vraag: 'Waar wilt u een offerte voor?', placeholder: 'Bijvoorbeeld: een hybride warmtepomp voor een woning uit 1975, met vloerverwarming beneden.' };

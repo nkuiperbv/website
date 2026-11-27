@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 const LINKS = [
   ['/#diensten', 'Diensten'],
   ['/#duurzaam', 'Duurzaam'],
+  ['/#zakelijk', 'Zakelijk'],
   ['/diensten/service-onderhoud', 'Service & onderhoud'],
   ['/over-ons', 'Over ons'],
   ['/actueel', 'Actueel'],

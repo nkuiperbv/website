@@ -20,7 +20,7 @@ export default async function DienstPagina({ params }) {
     <Kader>
       <section className="paginakop">
         <div className="wrap">
-          <div className="lbl">{d.categorie === 'duurzaam' ? 'Duurzaam' : 'Diensten'}</div>
+          <div className="lbl">{d.categorie === 'duurzaam' ? 'Duurzaam' : d.categorie === 'zakelijk' ? 'Zakelijk' : 'Diensten'}</div>
           <h1>{d.titel}</h1>
           {d.korte_tekst && <p style={{ margin: '16px 0 0', fontSize: 19, color: 'var(--tekst2)', maxWidth: 640 }}>{d.korte_tekst}</p>}
         </div>
@@ -30,7 +30,7 @@ export default async function DienstPagina({ params }) {
           <div className="tekst">
             {alineas(d.inhoud).map((p, n) => <p key={n}>{p}</p>)}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
-              <Link href={`/contact?onderwerp=${encodeURIComponent(d.titel)}#formulier`} className="btn">Offerte aanvragen</Link>
+              <Link href={`/contact?onderwerp=${encodeURIComponent(d.categorie === 'zakelijk' ? 'Zakelijk project' : d.titel)}#formulier`} className="btn">{d.categorie === 'zakelijk' ? 'Project bespreken' : 'Offerte aanvragen'}</Link>
               <a href={telLink(i.telefoon)} className="btn-rand">Bel {i.telefoon}</a>
             </div>
           </div>
