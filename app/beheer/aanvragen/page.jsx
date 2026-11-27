@@ -9,8 +9,8 @@ export default async function Aanvragen() {
 
   return (
     <>
-      <div className="b-kop"><h1>Offerteaanvragen</h1></div>
-      {(rijen || []).length === 0 && <div className="b-paneel">Nog geen aanvragen binnengekomen.</div>}
+      <div className="b-kop"><h1>Berichten &amp; aanvragen</h1></div>
+      {(rijen || []).length === 0 && <div className="b-paneel">Nog geen berichten binnengekomen.</div>}
       {(rijen || []).map((r) => (
         <div key={r.id} className="b-paneel" style={{ gap: 12 }}>
           <div className="b-kop">

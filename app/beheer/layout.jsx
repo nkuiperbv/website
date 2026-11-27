@@ -20,7 +20,7 @@ export default async function BeheerLayout({ children }) {
         </div>
         <nav className="b-nav" aria-label="Beheermenu">
           <Link href="/beheer">Overzicht</Link>
-          <Link href="/beheer/aanvragen">Offerteaanvragen</Link>
+          <Link href="/beheer/aanvragen">Berichten &amp; aanvragen</Link>
           <Link href="/beheer/teksten">Teksten &amp; foto&apos;s</Link>
           <Link href="/beheer/diensten">Diensten</Link>
           <Link href="/beheer/nieuws">Nieuws</Link>

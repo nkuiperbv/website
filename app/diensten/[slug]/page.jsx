@@ -30,7 +30,7 @@ export default async function DienstPagina({ params }) {
           <div className="tekst">
             {alineas(d.inhoud).map((p, n) => <p key={n}>{p}</p>)}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 24 }}>
-              <Link href={`/contact?onderwerp=${encodeURIComponent(d.titel)}#offerte`} className="btn">Offerte aanvragen</Link>
+              <Link href={`/contact?onderwerp=${encodeURIComponent(d.titel)}#formulier`} className="btn">Offerte aanvragen</Link>
               <a href={telLink(i.telefoon)} className="btn-rand">Bel {i.telefoon}</a>
             </div>
           </div>

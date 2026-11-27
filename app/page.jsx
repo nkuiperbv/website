@@ -40,7 +40,7 @@ export default async function Home() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             {i.hero_tekst && <p>{i.hero_tekst}</p>}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}>
-              <Link href="/contact#offerte" className="btn">Offerte aanvragen</Link>
+              <Link href="/contact?onderwerp=Offerte#formulier" className="btn">Offerte aanvragen</Link>
               <a href={tel} className="btn-rand">Bel {i.telefoon}</a>
             </div>
             {i.sinds_jaar && <span style={{ fontSize: 15, color: 'var(--grijs-tekst)' }}>Familiebedrijf sinds {i.sinds_jaar}</span>}
@@ -51,12 +51,12 @@ export default async function Home() {
       {/* Snelkeuze */}
       <section className="snelkeuze">
         <div className="wrap grid-auto">
-          <Link href="/contact#offerte" className="card">
+          <Link href="/contact?onderwerp=Offerte#formulier" className="card">
             <span className="lbl">Nieuw</span>
             <span className="card-titel" style={{ fontSize: 22 }}>Ik wil een offerte →</span>
             <span className="card-tekst">Nieuwe ketel, warmtepomp, badkamer of laadpaal.</span>
           </Link>
-          <Link href="/contact?onderwerp=Onderhoud#offerte" className="card">
+          <Link href="/contact?onderwerp=Onderhoud#formulier" className="card">
             <span className="lbl">Onderhoud</span>
             <span className="card-titel" style={{ fontSize: 22 }}>Onderhoud plannen →</span>
             <span className="card-tekst">Afspraak voor uw jaarlijkse beurt of een onderhoudscontract.</span>
@@ -141,7 +141,7 @@ export default async function Home() {
               <li>Eigen monteurs uit de regio</li>
               <li>Afspraken en facturen terug te zien in het klantenportaal</li>
             </ul>
-            <div><Link href="/contact?onderwerp=Onderhoud#offerte" className="btn">Onderhoud aanvragen</Link></div>
+            <div><Link href="/contact?onderwerp=Onderhoud#formulier" className="btn">Onderhoud aanvragen</Link></div>
           </div>
           <div className="keurmerken">
             {keurmerken.map((k) => {

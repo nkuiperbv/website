@@ -20,7 +20,7 @@ export default async function Overzicht() {
     <>
       <div className="b-kop"><h1>Overzicht</h1></div>
       <div className="b-tegels">
-        <Link href="/beheer/aanvragen" className="b-tegel"><b>{nieuweAanvragen}</b><span>Nieuwe offerteaanvragen</span></Link>
+        <Link href="/beheer/aanvragen" className="b-tegel"><b>{nieuweAanvragen}</b><span>Nieuwe berichten &amp; aanvragen</span></Link>
         <Link href="/beheer/diensten" className="b-tegel"><b>{diensten}</b><span>Diensten</span></Link>
         <Link href="/beheer/nieuws" className="b-tegel"><b>{nieuws}</b><span>Nieuwsberichten</span></Link>
         <Link href="/beheer/vacatures" className="b-tegel"><b>{vacatures}</b><span>Open vacatures</span></Link>

@@ -49,7 +49,7 @@ export default async function Kader({ children }) {
         <div className="wrap">
           <Link href="/" aria-label="Naar de homepage"><Logo src={i.logo} /></Link>
           <Menu telefoon={i.telefoon} telHref={tel} />
-          <Link href="/contact#offerte" className="btn header-cta" style={{ fontSize: 15, padding: '13px 22px' }}>Offerte aanvragen</Link>
+          <Link href="/contact?onderwerp=Offerte#formulier" className="btn header-cta" style={{ fontSize: 15, padding: '13px 22px' }}>Offerte aanvragen</Link>
         </div>
       </header>
 
@@ -76,7 +76,7 @@ export default async function Kader({ children }) {
           <div className="kolom">
             <span className="lbl">Snel naar</span>
             <a href={i.klantenportaal}>Klantenportaal</a>
-            <Link href="/contact#offerte">Offerte aanvragen</Link>
+            <Link href="/contact?onderwerp=Offerte#formulier">Offerte aanvragen</Link>
             <Link href="/werken-bij">Werken bij</Link>
           </div>
         </div>

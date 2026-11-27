@@ -29,7 +29,7 @@ export default function Menu({ telefoon, telHref }) {
       <nav id="hoofdmenu" className={`nav${open ? ' open' : ''}`} aria-label="Hoofdmenu">
         {LINKS.map(([href, tekst]) => <Link key={href} href={href} onClick={() => setOpen(false)}>{tekst}</Link>)}
         <div className="nav-mobiel-extra">
-          <Link href="/contact#offerte" className="btn" onClick={() => setOpen(false)}>Offerte aanvragen</Link>
+          <Link href="/contact?onderwerp=Offerte#formulier" className="btn" onClick={() => setOpen(false)}>Offerte aanvragen</Link>
           <a href={telHref} className="btn-rand">Bel {telefoon}</a>
         </div>
       </nav>

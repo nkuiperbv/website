@@ -31,7 +31,7 @@ export default async function WerkenBij() {
                 {v.uren && <span className="lbl" style={{ color: 'var(--grijs-tekst)' }}>{v.uren}</span>}
               </div>
               <div className="tekst">{alineas(v.inhoud).map((p, n) => <p key={n}>{p}</p>)}</div>
-              <div><Link href={`/contact?onderwerp=${encodeURIComponent('Sollicitatie ' + v.titel)}#offerte`} className="btn">Reageren</Link></div>
+              <div><Link href={`/contact?onderwerp=${encodeURIComponent('Sollicitatie ' + v.titel)}#formulier`} className="btn">Reageren</Link></div>
             </article>
           ))}
         </div>
