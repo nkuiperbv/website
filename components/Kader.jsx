@@ -1,6 +1,17 @@
 import Link from 'next/link';
 import { getInstellingen, telLink } from '@/lib/data';
 import Menu from './Menu';
+import Social from './Social';
+import WhatsAppKnop from './WhatsAppKnop';
+
+// 06 12345678 / 0315 617555 / +31 6 ... → 316... (formaat voor wa.me)
+function waNummer(n) {
+  let c = String(n || '').replace(/[^0-9+]/g, '');
+  if (c.startsWith('+')) c = c.slice(1);
+  else if (c.startsWith('00')) c = c.slice(2);
+  else if (c.startsWith('0')) c = '31' + c.slice(1);
+  return c.length >= 10 ? c : '';
+}
 
 function Logo({ src, wit }) {
   if (src) return <img src={src} alt="N. Kuiper B.V. Installatietechniek" className={wit ? 'logo-wit' : ''} style={{ height: 'clamp(40px, 6vw, 54px)', width: 'auto' }} />;
@@ -22,7 +33,8 @@ export default async function Kader({ children }) {
       <div className="topbalk">
         <div className="wrap">
           <div><span className="alleen-groot">Storing aan uw cv-ketel of warmtepomp? </span><span className="alleen-klein">Storing? </span>Bel direct <a href={tel} style={{ fontWeight: 600, textDecoration: 'underline' }}>{i.telefoon}</a></div>
-          <div className="alleen-groot" style={{ gap: 24, flexWrap: 'wrap' }}>
+          <div className="alleen-groot" style={{ gap: 24, flexWrap: 'wrap', alignItems: 'center' }}>
+            <Social instellingen={i} licht />
             <a href={`mailto:${i.email}`}>{i.email}</a>
             <a href={i.klantenportaal}>Klantenportaal →</a>
           </div>
@@ -54,7 +66,8 @@ export default async function Kader({ children }) {
             <span className="lbl">Contact</span>
             <a href={tel}>{i.telefoon}</a>
             <a href={`mailto:${i.email}`}>{i.email}</a>
-            {i.facebook && <a href={i.facebook}>Facebook</a>}
+            {waNummer(i.whatsapp) && <a href={`https://wa.me/${waNummer(i.whatsapp)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>}
+            <div style={{ marginTop: 14 }}><Social instellingen={i} licht /></div>
           </div>
           <div className="kolom">
             <span className="lbl">Snel naar</span>
@@ -73,6 +86,10 @@ export default async function Kader({ children }) {
           </div>
         </div>
       </footer>
+
+      {waNummer(i.whatsapp) && (
+        <WhatsAppKnop nummer={waNummer(i.whatsapp)} tekst={i.whatsapp_tekst} bericht={i.whatsapp_bericht} telefoon={i.telefoon} telHref={tel} />
+      )}
     </>
   );
 }
