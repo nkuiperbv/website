@@ -137,15 +137,17 @@ export default async function Home() {
             <h2 className="h2">Service &amp; onderhoud</h2>
             {i.onderhoud_tekst && <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65, color: 'var(--tekst2)' }}>{i.onderhoud_tekst}</p>}
             <ul className="vinkjes">
-              <li>Gecertificeerd volgens BRL 6000-25 (CO-vrij)</li>
+              <li>DEKRA-gecertificeerd volgens BRL 6000-25 (CO-vrij) en BRL 100 (F-gassen)</li>
               <li>Eigen monteurs uit de regio</li>
               <li>Afspraken en facturen terug te zien in het klantenportaal</li>
             </ul>
             <div><Link href="/contact?onderwerp=Onderhoud#offerte" className="btn">Onderhoud aanvragen</Link></div>
           </div>
           <div className="keurmerken">
-            <div><b>DEKRA</b><span>BRL 6000-25</span></div>
+            <div><b>DEKRA</b><span>Gecertificeerd · BRL 6000-25</span></div>
+            <div><b>BRL 100</b><span>Gecertificeerd voor F-gassen (airco en warmtepompen)</span></div>
             <div><b>CO-vrij</b><span>Keurmerk</span></div>
+            <div><b>NVKL</b><span>Lid, koude- en klimaattechniek</span></div>
             <div><b>Techniek Nederland</b><span>Lid</span></div>
             <div><b>SBB</b><span>Erkend leerbedrijf</span></div>
           </div>
