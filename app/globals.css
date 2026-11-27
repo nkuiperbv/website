@@ -75,6 +75,21 @@ a.card:hover { border-color: var(--antraciet); color: inherit; }
 .topbalk .social a { width: 28px; height: 28px; }
 .topbalk .social svg { width: 16px; height: 16px; }
 
+/* Volg ons: Instagram en Facebook */
+.volg-grid { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; justify-content: space-between; }
+.volg-grid > * { flex: 1 1 420px; min-width: 0; }
+.fb-kolom { flex: 0 1 500px; display: flex; justify-content: center; }
+.insta-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 900px) { .insta-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .insta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.insta-item { position: relative; aspect-ratio: 1 / 1; border-radius: 6px; overflow: hidden; background: var(--lijn); }
+.insta-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+.insta-item:hover img { transform: scale(1.05); }
+.insta-video { position: absolute; right: 8px; top: 8px; color: #fff; font-size: 14px; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.fb-toestemming { width: 100%; max-width: 500px; min-height: 360px; background: var(--lichtgrijs); border-radius: 8px; padding: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; }
+.fb-toestemming b { font-family: var(--kop); font-size: 20px; }
+.fb-toestemming span { color: var(--grijs-tekst); font-size: 15px; line-height: 1.5; max-width: 360px; }
+
 /* WhatsApp-chatknop */
 .wa { position: fixed; right: 20px; bottom: 20px; z-index: 100; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
 .wa-knop { width: 60px; height: 60px; border-radius: 999px; border: 0; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 24px rgba(29,27,28,.25); }

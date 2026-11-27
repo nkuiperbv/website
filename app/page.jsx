@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Kader from '@/components/Kader';
 import Icoon from '@/components/Icoon';
-import { getInstellingen, getDiensten, getNieuws, getKeurmerken, telLink } from '@/lib/data';
+import { getInstellingen, getDiensten, getNieuws, getKeurmerken, getInstagram, telLink } from '@/lib/data';
+import FacebookFeed from '@/components/FacebookFeed';
 
 export const revalidate = 60;
 
@@ -15,6 +16,9 @@ export default async function Home() {
   const diensten = alle.filter((d) => d.categorie === 'dienst');
   const duurzaam = alle.filter((d) => d.categorie === 'duurzaam');
   const zakelijk = alle.filter((d) => d.categorie === 'zakelijk');
+  const feedAan = i.social_feed === 'aan';
+  const insta = feedAan ? await getInstagram(i.instagram_feed) : [];
+  const toonFb = feedAan && i.facebook;
   const tel = telLink(i.telefoon);
 
   return (
@@ -217,6 +221,42 @@ export default async function Home() {
                   <span className="bericht-titel">{n.titel}</span>
                 </Link>
               ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Volg ons: Instagram en Facebook */}
+      {feedAan && (insta.length > 0 || toonFb) && (
+        <section id="volg-ons" className="sectie">
+          <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+            <div className="kop-rij">
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div className="streep" />
+                <h2 className="h2">Volg ons</h2>
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                {i.instagram && <a href={i.instagram} target="_blank" rel="noopener noreferrer" className="btn-rand">Instagram ↗</a>}
+                {i.facebook && <a href={i.facebook} target="_blank" rel="noopener noreferrer" className="btn-rand">Facebook ↗</a>}
+              </div>
+            </div>
+            <div className="volg-grid">
+              {insta.length > 0 && (
+                <div className="insta-grid">
+                  {insta.map((p) => (
+                    <a key={p.id} href={p.link} target="_blank" rel="noopener noreferrer" className="insta-item" aria-label={p.tekst ? `Instagram: ${p.tekst}` : 'Bekijk op Instagram'}>
+                      <img src={p.beeld} alt="" loading="lazy" />
+                      {p.video && <span className="insta-video" aria-hidden="true">▶</span>}
+                    </a>
+                  ))}
+                </div>
+              )}
+              {!insta.length && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 16, maxWidth: 520 }}>
+                  <p style={{ margin: 0, fontSize: 17, lineHeight: 1.65, color: 'var(--tekst2)' }}>Benieuwd waar we mee bezig zijn? Op onze sociale media laten we projecten, nieuwe installaties en nieuws van het team zien.</p>
+                </div>
+              )}
+              {toonFb && <div className="fb-kolom"><FacebookFeed pagina={i.facebook} /></div>}
             </div>
           </div>
         </section>
