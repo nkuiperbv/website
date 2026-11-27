@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Kader from '@/components/Kader';
 
+export const metadata = { title: 'Pagina niet gevonden' };
+
 export default function NietGevonden() {
   return (
     <Kader>

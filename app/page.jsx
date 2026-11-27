@@ -6,9 +6,9 @@ import FacebookFeed from '@/components/FacebookFeed';
 
 export const revalidate = 60;
 
-function Foto({ src, alt, hoogte, label, donker }) {
-  if (src) return <div style={{ height: hoogte }}><img src={src} alt={alt} className="foto" /></div>;
-  return <div className="ph" style={{ height: hoogte, ...(donker ? { background: '#3A3634', color: '#CFCAC5' } : {}) }}>{label}</div>;
+function Foto({ src, alt, hoogte }) {
+  if (!src) return null;
+  return <div style={{ height: hoogte }}><img src={src} alt={alt} className="foto" /></div>;
 }
 
 export default async function Home() {
@@ -23,6 +23,20 @@ export default async function Home() {
 
   return (
     <Kader>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'HVACBusiness',
+          name: 'N. Kuiper B.V. Installatietechniek',
+          telephone: i.telefoon,
+          email: i.email,
+          foundingDate: i.sinds_jaar || undefined,
+          address: { '@type': 'PostalAddress', streetAddress: i.adres, postalCode: (i.postcode_plaats || '').slice(0, 7), addressLocality: (i.postcode_plaats || '').slice(8), addressCountry: 'NL' },
+          areaServed: 'Achterhoek',
+          sameAs: [i.facebook, i.instagram, i.linkedin, i.youtube, i.tiktok].filter(Boolean),
+        }).replace(/</g, '\\u003c') }}
+      />
       {/* Groot openingsbeeld: filmpje, anders foto */}
       <section className="beeld" aria-label="Openingsbeeld">
         {i.hero_foto && <img src={i.hero_foto} alt="Het team van N. Kuiper" className="beeld-media" />}
@@ -154,11 +168,9 @@ export default async function Home() {
       {/* Ons team */}
       <section id="team" className="sectie">
         <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-          <div className="team-foto">
-            {i.team_foto
-              ? <img src={i.team_foto} alt="Het team van N. Kuiper" />
-              : <div className="ph" style={{ height: '100%', borderRadius: 0 }}>Hier komt de grote teamfoto (te uploaden via het beheer)</div>}
-          </div>
+          {i.team_foto && (
+            <div className="team-foto"><img src={i.team_foto} alt="Het team van N. Kuiper" /></div>
+          )}
           <div className="kop-rij" style={{ alignItems: 'flex-start' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div className="streep" />
@@ -216,7 +228,7 @@ export default async function Home() {
             <div className="grid-auto" style={{ gap: 24, gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
               {nieuws.map((n) => (
                 <Link key={n.id} href={`/actueel/${n.slug}`} className="bericht">
-                  <Foto src={n.foto_url} alt="" hoogte={200} label="" />
+                  <Foto src={n.foto_url} alt="" hoogte={200} />
                   {n.categorie && <span className="lbl" style={{ color: 'var(--grijs-tekst)' }}>{n.categorie}</span>}
                   <span className="bericht-titel">{n.titel}</span>
                 </Link>

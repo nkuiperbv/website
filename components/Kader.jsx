@@ -1,17 +1,9 @@
 import Link from 'next/link';
-import { getInstellingen, telLink } from '@/lib/data';
+import { getInstellingen, telLink, waNummer } from '@/lib/data';
 import Menu from './Menu';
 import Social from './Social';
 import WhatsAppKnop from './WhatsAppKnop';
 
-// 06 12345678 / 0315 617555 / +31 6 ... → 316... (formaat voor wa.me)
-function waNummer(n) {
-  let c = String(n || '').replace(/[^0-9+]/g, '');
-  if (c.startsWith('+')) c = c.slice(1);
-  else if (c.startsWith('00')) c = c.slice(2);
-  else if (c.startsWith('0')) c = '31' + c.slice(1);
-  return c.length >= 10 ? c : '';
-}
 
 function Logo({ src, wit }) {
   if (src) {
@@ -65,6 +57,7 @@ export default async function Kader({ children }) {
             <span className="lbl">Bezoekadres</span>
             <span>{i.adres}</span>
             <span>{i.postcode_plaats}</span>
+            {i.openingstijden && <span style={{ marginTop: 10, whiteSpace: 'pre-line', fontSize: 14 }}>{i.openingstijden}</span>}
           </div>
           <div className="kolom">
             <span className="lbl">Contact</span>

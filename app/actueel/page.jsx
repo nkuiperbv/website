@@ -15,7 +15,7 @@ export default async function Actueel() {
           {nieuws.length === 0 && <p>Er zijn nog geen berichten.</p>}
           {nieuws.map((n) => (
             <Link key={n.id} href={`/actueel/${n.slug}`} className="bericht">
-              <div style={{ height: 200 }}>{n.foto_url ? <img src={n.foto_url} alt="" className="foto" /> : <div className="ph" style={{ height: '100%' }} />}</div>
+              {n.foto_url && <div style={{ height: 200 }}><img src={n.foto_url} alt="" className="foto" /></div>}
               <span className="lbl" style={{ color: 'var(--grijs-tekst)' }}>{[n.categorie, datumNL(n.gepubliceerd_op)].filter(Boolean).join(' · ')}</span>
               <span className="bericht-titel">{n.titel}</span>
               {n.samenvatting && <span className="card-tekst">{n.samenvatting}</span>}

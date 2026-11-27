@@ -21,6 +21,19 @@ export default function OfferteFormulier({ onderwerp, telefoon, telHref }) {
   const opties = !ONDERWERPEN.includes(start) ? [start, ...ONDERWERPEN] : ONDERWERPEN;
   const [gekozen, setGekozen] = useState(start);
   const s = soort(gekozen);
+  const w = staat?.waarden || {};
+  const [clientFout, setClientFout] = useState('');
+
+  function controleer(e) {
+    const f = e.currentTarget;
+    if (!f.email.value.trim() && !f.telefoon.value.trim()) {
+      e.preventDefault();
+      setClientFout('Vul een e-mailadres of telefoonnummer in, zodat we u kunnen bereiken.');
+      f.telefoon.focus();
+      return;
+    }
+    setClientFout('');
+  }
 
   if (staat?.ok) {
     return (
@@ -33,7 +46,7 @@ export default function OfferteFormulier({ onderwerp, telefoon, telHref }) {
   return (
     <>
       <h2 className="h2" style={{ fontSize: 28, marginBottom: 24 }}>{s.kop}</h2>
-      <form action={actie} className="form">
+      <form key={staat?.t || 0} action={actie} onSubmit={controleer} className="form">
         <div className="rij2">
           <div className="veld">
             <label htmlFor="onderwerp">Waar gaat het over?</label>
@@ -41,26 +54,27 @@ export default function OfferteFormulier({ onderwerp, telefoon, telHref }) {
               {opties.map((o) => <option key={o}>{o}</option>)}
             </select>
           </div>
-          <div className="veld"><label htmlFor="naam">Naam *</label><input id="naam" name="naam" required autoComplete="name" /></div>
+          <div className="veld"><label htmlFor="naam">Naam *</label><input id="naam" name="naam" required autoComplete="name" defaultValue={w.naam || ''} /></div>
         </div>
         {gekozen.toLowerCase().startsWith('storing') && (
           <div className="melding fout">Heeft u spoed, bijvoorbeeld geen verwarming of warm water? Bel dan direct <a href={telHref} style={{ fontWeight: 600, textDecoration: 'underline' }}>{telefoon}</a>.</div>
         )}
+        <small style={{ color: 'var(--grijs-tekst)', marginBottom: -8 }}>Vul een e-mailadres of telefoonnummer in (of allebei).</small>
         <div className="rij2">
-          <div className="veld"><label htmlFor="email">E-mailadres</label><input id="email" name="email" type="email" autoComplete="email" /></div>
-          <div className="veld"><label htmlFor="telefoon">Telefoonnummer</label><input id="telefoon" name="telefoon" type="tel" autoComplete="tel" /></div>
+          <div className="veld"><label htmlFor="email">E-mailadres</label><input id="email" name="email" type="email" autoComplete="email" defaultValue={w.email || ''} /></div>
+          <div className="veld"><label htmlFor="telefoon">Telefoonnummer</label><input id="telefoon" name="telefoon" type="tel" autoComplete="tel" defaultValue={w.telefoon || ''} /></div>
         </div>
-        <div className="veld"><label htmlFor="adres">Adres en woonplaats</label><input id="adres" name="adres" autoComplete="street-address" /></div>
+        <div className="veld"><label htmlFor="adres">Adres en woonplaats</label><input id="adres" name="adres" autoComplete="street-address" defaultValue={w.adres || ''} /></div>
         <div className="veld">
           <label htmlFor="bericht">{s.vraag} *</label>
-          <textarea id="bericht" name="bericht" rows={6} required placeholder={s.placeholder} />
+          <textarea id="bericht" name="bericht" rows={6} required placeholder={s.placeholder} defaultValue={w.bericht || ''} />
         </div>
         <div className="verborgen" aria-hidden="true"><label htmlFor="website">Laat leeg</label><input id="website" name="website" tabIndex={-1} autoComplete="off" /></div>
         <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14 }}>
-          <input type="checkbox" name="akkoord" value="ja" required style={{ marginTop: 4, width: 18, height: 18 }} />
+          <input type="checkbox" name="akkoord" value="ja" required defaultChecked={!!w.akkoord} style={{ marginTop: 4, width: 18, height: 18 }} />
           <span>Ik ga akkoord dat N. Kuiper B.V. mijn gegevens gebruikt om contact met mij op te nemen over dit bericht (zie de <a href="/privacy" style={{ textDecoration: 'underline' }}>privacyverklaring</a>).</span>
         </label>
-        {staat?.fout && <div className="melding fout" role="alert">{staat.fout}</div>}
+        {(clientFout || staat?.fout) && <div className="melding fout" role="alert">{clientFout || staat.fout}</div>}
         <div><button className="btn" disabled={bezig}>{bezig ? 'Bezig met versturen…' : s.knop}</button></div>
       </form>
     </>

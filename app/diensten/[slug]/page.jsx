@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Kader from '@/components/Kader';
-import { getDienst, getInstellingen, alineas, telLink } from '@/lib/data';
+import { getDienst, getDiensten, getInstellingen, alineas, telLink } from '@/lib/data';
 
 export const revalidate = 60;
 
@@ -13,8 +13,9 @@ export async function generateMetadata({ params }) {
 
 export default async function DienstPagina({ params }) {
   const { slug } = await params;
-  const [d, i] = await Promise.all([getDienst(slug), getInstellingen()]);
+  const [d, i, alle] = await Promise.all([getDienst(slug), getInstellingen(), getDiensten()]);
   if (!d) notFound();
+  const verwant = alle.filter((x) => x.categorie === d.categorie && x.slug !== d.slug);
 
   return (
     <Kader>
@@ -34,11 +35,24 @@ export default async function DienstPagina({ params }) {
               <a href={telLink(i.telefoon)} className="btn-rand">Bel {i.telefoon}</a>
             </div>
           </div>
-          <div style={{ height: 420 }}>
-            {d.foto_url ? <img src={d.foto_url} alt={d.titel} className="foto" /> : <div className="ph" style={{ height: '100%' }}>Foto volgt</div>}
-          </div>
+          {d.foto_url && <div style={{ height: 420 }}><img src={d.foto_url} alt={d.titel} className="foto" /></div>}
         </div>
       </section>
+      {verwant.length > 0 && (
+        <section className="sectie" style={{ background: 'var(--lichtgrijs)', paddingTop: 64, paddingBottom: 64 }}>
+          <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <h2 className="h2" style={{ fontSize: 26 }}>{d.categorie === 'duurzaam' ? 'Meer duurzame technieken' : d.categorie === 'zakelijk' ? 'Meer voor bedrijven' : 'Andere diensten'}</h2>
+            <div className="grid-auto">
+              {verwant.map((x) => (
+                <Link key={x.id} href={`/diensten/${x.slug}`} className="card">
+                  <span className="card-titel" style={{ fontSize: 18 }}>{x.titel} →</span>
+                  <span className="card-tekst">{x.korte_tekst}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </Kader>
   );
 }

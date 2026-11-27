@@ -12,9 +12,7 @@ export default async function OverOns() {
       <section className="sectie">
         <div className="wrap split" style={{ alignItems: 'flex-start' }}>
           <div className="tekst">{alineas(i.over_ons_tekst).map((p, n) => <p key={n}>{p}</p>)}</div>
-          <div style={{ height: 420 }}>
-            {i.over_ons_foto ? <img src={i.over_ons_foto} alt="Het team van N. Kuiper" className="foto" /> : <div className="ph" style={{ height: '100%' }}>Foto volgt</div>}
-          </div>
+          {i.over_ons_foto && <div style={{ height: 420 }}><img src={i.over_ons_foto} alt={"Het team van N. Kuiper"} className="foto" /></div>}
         </div>
       </section>
     </Kader>

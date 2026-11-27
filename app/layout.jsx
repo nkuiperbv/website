@@ -2,6 +2,8 @@ import './globals.css';
 import AuthLink from '@/components/AuthLink';
 
 export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nkuiperbv.nl'),
+  openGraph: { type: 'website', locale: 'nl_NL', siteName: 'N. Kuiper B.V. Installatietechniek' },
   title: {
     default: 'N. Kuiper B.V. Installatietechniek | Totaalinstallateur in de Achterhoek',
     template: '%s | N. Kuiper B.V. Installatietechniek',
