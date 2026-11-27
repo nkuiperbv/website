@@ -1,5 +1,5 @@
 'use client';
-import { useActionState, useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { verstuurAanvraag } from '@/app/contact/actions';
 
 const ONDERWERPEN = ['Algemene vraag', 'Offerte', 'Onderhoud', 'Storing (geen spoed)', 'Verwarming', 'Warmtepomp', 'Zonnepanelen', 'Elektra', 'Sanitair', 'Airco', 'Laadpaal', 'Zakelijk project', 'Sollicitatie', 'Iets anders'];
@@ -23,9 +23,16 @@ export default function OfferteFormulier({ onderwerp, telefoon, telHref }) {
   const s = soort(gekozen);
   const w = staat?.waarden || {};
   const [clientFout, setClientFout] = useState('');
+  const [gestart, setGestart] = useState('');
+  useEffect(() => { setGestart(String(Date.now())); }, [staat?.t]);
 
   function controleer(e) {
     const f = e.currentTarget;
+    if (!f.mens.checked) {
+      e.preventDefault();
+      setClientFout('Vink "Ik ben geen robot" aan om het bericht te versturen.');
+      return;
+    }
     if (!f.email.value.trim() && !f.telefoon.value.trim()) {
       e.preventDefault();
       setClientFout('Vul een e-mailadres of telefoonnummer in, zodat we u kunnen bereiken.');
@@ -73,6 +80,12 @@ export default function OfferteFormulier({ onderwerp, telefoon, telHref }) {
         <label style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14 }}>
           <input type="checkbox" name="akkoord" value="ja" required defaultChecked={!!w.akkoord} style={{ marginTop: 4, width: 18, height: 18 }} />
           <span>Ik ga akkoord dat N. Kuiper B.V. mijn gegevens gebruikt om contact met mij op te nemen over dit bericht (zie de <a href="/privacy" style={{ textDecoration: 'underline' }}>privacyverklaring</a>).</span>
+        </label>
+        <input type="hidden" name="gestart" value={gestart} />
+        <label className="robot">
+          <input type="checkbox" name="mens" value="ja" required />
+          <span>Ik ben geen robot</span>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8A847F" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z" /><path d="M9 12l2 2 4-4" /></svg>
         </label>
         {(clientFout || staat?.fout) && <div className="melding fout" role="alert">{clientFout || staat.fout}</div>}
         <div><button className="btn" disabled={bezig}>{bezig ? 'Bezig met versturen…' : s.knop}</button></div>

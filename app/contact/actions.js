@@ -19,10 +19,15 @@ export async function verstuurAanvraag(_vorige, formData) {
     bericht: max(formData.get('bericht'), 4000),
   };
 
+  // Robots die het formulier binnen 3 seconden invullen, stil negeren
+  const gestart = Number(formData.get('gestart'));
+  if (gestart && Date.now() - gestart < 3000) return { ok: true };
+
   const terug = (fout) => ({ ok: false, fout, waarden: { ...aanvraag, akkoord: formData.get('akkoord') === 'ja' }, t: Date.now() });
   if (!aanvraag.naam || !aanvraag.bericht) return terug('Vul uw naam en uw vraag in.');
   if (!aanvraag.email && !aanvraag.telefoon) return terug('Vul een e-mailadres of telefoonnummer in, zodat we u kunnen bereiken.');
   if (aanvraag.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(aanvraag.email)) return terug('Controleer uw e-mailadres.');
+  if (formData.get('mens') !== 'ja') return terug('Vink "Ik ben geen robot" aan om het bericht te versturen.');
   if (formData.get('akkoord') !== 'ja') return terug('Geef aan dat wij uw gegevens mogen gebruiken om contact met u op te nemen.');
 
   const { error } = await publicClient().from('offerteaanvragen').insert(aanvraag);

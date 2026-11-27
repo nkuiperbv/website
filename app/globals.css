@@ -91,6 +91,11 @@ a.card:hover { border-color: var(--antraciet); color: inherit; }
 .fb-toestemming b { font-family: var(--kop); font-size: 20px; }
 .fb-toestemming span { color: var(--grijs-tekst); font-size: 15px; line-height: 1.5; max-width: 360px; }
 
+/* Ik ben geen robot */
+.robot { display: inline-flex; align-self: flex-start; align-items: center; gap: 14px; border: 1px solid #C9C4BF; border-radius: 6px; padding: 14px 16px; background: var(--lichtgrijs); font-size: 15px; font-weight: 500; cursor: pointer; min-width: 260px; }
+.robot input { width: 24px; height: 24px; margin: 0; accent-color: var(--rood); cursor: pointer; }
+.robot span { flex: 1; }
+
 /* WhatsApp-chatknop */
 .wa { position: fixed; right: 20px; bottom: 20px; z-index: 100; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
 .wa-knop { width: 60px; height: 60px; border-radius: 999px; border: 0; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 24px rgba(29,27,28,.25); }
