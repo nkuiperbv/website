@@ -8,7 +8,7 @@ export const metadata = { title: 'Beheer', robots: { index: false } };
 export const dynamic = 'force-dynamic';
 
 export default async function BeheerLayout({ children }) {
-  const { user, isBeheerder } = await getBeheerder();
+  const { user, isBeheerder, magGebruikersBeheren } = await getBeheerder();
   if (!user) redirect('/inloggen');
 
   return (
@@ -26,6 +26,7 @@ export default async function BeheerLayout({ children }) {
           <Link href="/beheer/nieuws">Nieuws</Link>
           <Link href="/beheer/vacatures">Vacatures</Link>
           <Link href="/beheer/keurmerken">Keurmerken</Link>
+          {magGebruikersBeheren && <Link href="/beheer/gebruikers">Gebruikers</Link>}
           <Link href="/beheer/wachtwoord">Wachtwoord wijzigen</Link>
         </nav>
         <div style={{ padding: 20, marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 10, fontSize: 13, color: 'var(--grijs-tekst)' }}>
